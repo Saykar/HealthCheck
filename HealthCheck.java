@@ -43,55 +43,55 @@ public class HealthCheck {
 	    int ret;
 	    
 	    try {
-	      //Create connection
-	      url = new URL(targetURL);
-	      connection = (HttpURLConnection)url.openConnection();
-	      connection.setRequestMethod("POST");
-	      connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");				 				
-	      connection.setUseCaches (false);
-	      connection.setDoInput(true);
-	      connection.setDoOutput(true);
-	      connection.setRequestProperty("Content-Length", "" + Integer.toString(data.getBytes().length));
-	      connection.setRequestProperty("SOAPAction", SOAPaction);
-	          
-	      //Send request
-	      DataOutputStream wr = new DataOutputStream (connection.getOutputStream());
-	      wr.writeBytes (data);
-	      wr.flush ();
-	      wr.close ();
-
-	      //Get Response	
-	      ret = connection.getResponseCode();  	      
-	      return ret;
+		      //Create connection
+		      url = new URL(targetURL);
+		      connection = (HttpURLConnection)url.openConnection();
+		      connection.setRequestMethod("POST");
+		      connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");				 				
+		      connection.setUseCaches (false);
+		      connection.setDoInput(true);
+		      connection.setDoOutput(true);
+		      connection.setRequestProperty("Content-Length", "" + Integer.toString(data.getBytes().length));
+		      connection.setRequestProperty("SOAPAction", SOAPaction);
+		          
+		      //Send request
+		      DataOutputStream wr = new DataOutputStream (connection.getOutputStream());
+		      wr.writeBytes (data);
+		      wr.flush ();
+		      wr.close ();
+	
+		      //Get Response	
+		      ret = connection.getResponseCode();  	      
+		      return ret;
 	    } 
 	    catch (RuntimeException e) {
-			 throw e;
+			throw e;
 		} 
 		catch (Exception e) {
-			 throw new RuntimeException(e);
+			throw new RuntimeException(e);
 		}
 	    finally {
 
-	      if(connection != null) {
-	        connection.disconnect(); 
-	      }
+		      if(connection != null) {
+		        connection.disconnect(); 
+		      }
 	    }
 	  }
 	
 	 public static int checkHTTPHealth(String strURL) {
 
 		 try {
-				  int code = 0;
-				 
-				 URL url = new URL (strURL);
-				 URLConnection connection = url.openConnection();
-				 
-				 HttpURLConnection httpConnection = (HttpURLConnection) connection;
-				 httpConnection.setConnectTimeout(5000);
-				 httpConnection.connect();
-				 code = httpConnection.getResponseCode();	
+			 int code = 0;
+			 
+			 URL url = new URL (strURL);
+			 URLConnection connection = url.openConnection();
+			 
+			 HttpURLConnection httpConnection = (HttpURLConnection) connection;
+			 httpConnection.setConnectTimeout(5000);
+			 httpConnection.connect();
+			 code = httpConnection.getResponseCode();	
 
-				  return code;
+			 return code;
 
 		 } catch (RuntimeException e) {
 			 throw e;
